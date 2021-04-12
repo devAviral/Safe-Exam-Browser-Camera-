@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Question Paper</title>
+	<style type="text/css">
+		a{
+			text-decoration: none;
+			font-size: 30px;
+			background-color: yellow;
+			color: red;
+			border-radius: 5px;
+			border: 2px black solid;
+		}
+	</style>
+</head>
+<body>
+	<h1>Welcome to Exam Portal</h1>
+	<a href="https://www.safeexambrowser.org/quit"><span class="addBtn">QUIT</span></a>
+<video id="video" style="width:640px;height:480px"></video>
+<button id="picture">take picture</button>
+<canvas id="canvas" width="640" height="480"></canvas>
+
+	<script type="text/javascript">
+		window.addEventListener("DOMContentLoaded",function(){
+	var canvas=document.getElementById("canvas"),
+		video=document.getElementById("video"),
+		context=canvas.getContext("2d"),
+		videoObj={"video":true},
+		errorfn=function(){
+		console.log('str wrong');
+	}
+	var play=function(){
+		if(navigator.getUserMedia) { // Standard
+			navigator.getUserMedia(videoObj, function(stream) {
+				video.src = stream;
+				video.play();
+			}, errorfn);
+		} else if(navigator.webkitGetUserMedia) { // WebKit-prefixed
+			navigator.webkitGetUserMedia(videoObj, function(stream){
+				video.src = window.webkitURL.createObjectURL(stream);
+				video.play();
+			}, errorfn);
+		} else if(navigator.mozGetUserMedia) { // WebKit-prefixed
+			navigator.mozGetUserMedia(videoObj, function(stream){
+				video.src = window.URL.createObjectURL(stream);
+				video.play();
+			}, errorfn);
+		}
+		else if(navigator.msGetUserMedia) { // WebKit-prefixed
+			navigator.mozGetUserMedia(videoObj, function(stream){
+				video.src = window.URL.createObjectURL(stream);
+				video.play();
+			}, errorfn);
+		}
+	}
+	play();
+	document.getElementById("picture").addEventListener("click",function(){
+		context.drawImage(video,0,0,640,480);
+	})
+},false)
+	</script>
+</body>
+</html>
